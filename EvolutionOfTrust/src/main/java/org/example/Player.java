@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.Objects;
 import java.util.Random;
 
 public class Player {
@@ -14,19 +13,6 @@ public class Player {
             throw new IllegalArgumentException();
         this.name = name;
         this.score = 0;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Player player = (Player) o;
-        return score == player.score && Objects.equals(name, player.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, score);
     }
 
     private void addScore(int score) {
