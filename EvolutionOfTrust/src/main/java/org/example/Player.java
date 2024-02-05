@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Player {
 
@@ -34,4 +35,11 @@ public class Player {
         this.score += score;
     }
 
+    public Choice choice(){
+        return new Random().nextInt(2) == 0 ? Choice.COOPERATE : Choice.CHEAT;
+    }
+
+    public int score(){
+        return this.score;
+    }
 }

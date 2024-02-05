@@ -6,6 +6,7 @@ public class CheatPlayer extends Player{
         super(name);
     }
 
+    @Override
     public Choice choice(){
         return Choice.CHEAT;
     }

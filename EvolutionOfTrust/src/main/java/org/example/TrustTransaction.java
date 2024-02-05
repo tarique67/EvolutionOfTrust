@@ -6,7 +6,6 @@ public class TrustTransaction {
 
     private final Player playerTwo;
 
-
     public TrustTransaction(Player playerOne, Player playerTwo) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
@@ -24,6 +23,12 @@ public class TrustTransaction {
         if(playerOneChoice == Choice.COOPERATE && playerTwoChoice == Choice.CHEAT) {
             this.playerOne.addScore(-1);
             this.playerTwo.addScore(3);
+        }
+    }
+
+    public void transact(int rounds) {
+        while(rounds-- != 0) {
+            transact(playerOne.choice(), playerTwo.choice());
         }
     }
 }

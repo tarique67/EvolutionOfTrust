@@ -1,3 +1,4 @@
+import org.example.CheatPlayer;
 import org.example.Choice;
 import org.example.TrustTransaction;
 import org.example.Player;
@@ -23,7 +24,8 @@ public class TrustTransactionTest {
 
         machine.transact(Choice.COOPERATE, Choice.COOPERATE);
 
-        assertEquals(firstPlayer, secondPlayer);
+        assertEquals(2,firstPlayer.score());
+        assertEquals(2,secondPlayer.score());
     }
 
     @Test
@@ -34,6 +36,19 @@ public class TrustTransactionTest {
 
         machine.transact(Choice.COOPERATE, Choice.CHEAT);
 
-        assertNotEquals(firstPlayer, secondPlayer);
+        assertEquals(-1, firstPlayer.score());
+        assertEquals(3, secondPlayer.score());
+    }
+
+    @Test
+    void expectScore0_0ForBothCheatPlayersForARoundOf5() {
+        CheatPlayer firstCheatPlayer = new CheatPlayer("James");
+        CheatPlayer secondCheatPlayer = new CheatPlayer("James");
+        TrustTransaction machine = new TrustTransaction(firstCheatPlayer, secondCheatPlayer);
+
+        machine.transact(5);
+
+        assertEquals(0, firstCheatPlayer.score());
+        assertEquals(0, secondCheatPlayer.score());
     }
 }

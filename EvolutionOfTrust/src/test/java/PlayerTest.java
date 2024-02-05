@@ -18,23 +18,19 @@ public class PlayerTest {
     @Test
     void expectScore2Added() {
         Player firstPlayer = new Player("James");
-        Player secondPlayer = new Player("James");
-        assertEquals(firstPlayer,secondPlayer);
 
         firstPlayer.addScore(2);
 
-        assertNotEquals(firstPlayer,secondPlayer);
+        assertEquals(2,firstPlayer.score());
     }
 
     @Test
     void expectScore0Added() {
         Player firstPlayer = new Player("James");
-        Player secondPlayer = new Player("James");
-        assertEquals(firstPlayer,secondPlayer);
 
         firstPlayer.addScore(0);
 
-        assertEquals(firstPlayer,secondPlayer);
+        assertEquals(0, firstPlayer.score());
     }
 
     @Test
