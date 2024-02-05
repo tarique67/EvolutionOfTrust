@@ -11,24 +11,23 @@ public class TrustTransaction {
         this.playerTwo = playerTwo;
     }
 
-    public void transact(Choice playerOneChoice, Choice playerTwoChoice) {
-        if(playerOneChoice == Choice.COOPERATE && playerTwoChoice == Choice.COOPERATE){
-            this.playerOne.addScore(2);
-            this.playerTwo.addScore(2);
+    private void transactRound() {
+        Choice playerOneChoice = playerOne.choice();
+        Choice playerTwoChoice = playerTwo.choice();
+
+        if(playerOneChoice == Choice.COOPERATE){
+            this.playerOne.invest();
+            this.playerTwo.gain();
         }
-        if(playerOneChoice == Choice.CHEAT && playerTwoChoice == Choice.COOPERATE) {
-            this.playerOne.addScore(3);
-            this.playerTwo.addScore(-1);
-        }
-        if(playerOneChoice == Choice.COOPERATE && playerTwoChoice == Choice.CHEAT) {
-            this.playerOne.addScore(-1);
-            this.playerTwo.addScore(3);
+        if(playerTwoChoice == Choice.COOPERATE){
+            this.playerTwo.invest();
+            this.playerOne.gain();
         }
     }
 
-    public void transact(int rounds) {
-        while(rounds-- != 0) {
-            transact(playerOne.choice(), playerTwo.choice());
+    public void transact(int noOfRounds) {
+        while(noOfRounds-- != 0) {
+            transactRound();
         }
     }
 }

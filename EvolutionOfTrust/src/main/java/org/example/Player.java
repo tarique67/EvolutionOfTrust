@@ -29,11 +29,13 @@ public class Player {
         return Objects.hash(name, score);
     }
 
-    public void addScore(int score) {
-        if(score != 0 && score != -1 && score != 3 && score != 2)
+    private void addScore(int score) {
+        if(score != -1 && score != 3 )
             throw new IllegalArgumentException();
         this.score += score;
     }
+
+
 
     public Choice choice(){
         return new Random().nextInt(2) == 0 ? Choice.COOPERATE : Choice.CHEAT;
@@ -41,5 +43,13 @@ public class Player {
 
     public int score(){
         return this.score;
+    }
+
+    public void invest() {
+        addScore(-1);
+    }
+
+    public void gain() {
+        addScore(3);
     }
 }
