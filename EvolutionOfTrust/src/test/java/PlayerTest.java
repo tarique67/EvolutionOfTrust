@@ -15,42 +15,21 @@ public class PlayerTest {
         assertDoesNotThrow(() -> new Player("James"));
     }
 
-//    @Test
-//    void expectScore2Added() {
-//        Player firstPlayer = new Player("James");
-//
-//        firstPlayer.addScore(2);
-//
-//        assertEquals(2,firstPlayer.score());
-//    }
+    @Test
+    void expectPlayerScore3IfGained() {
+        Player player = new Player("ABC");
 
-//    @Test
-//    void expectScore0Added() {
-//        Player firstPlayer = new Player("James");
-//
-//        firstPlayer.addScore(0);
-//
-//        assertEquals(0, firstPlayer.score());
-//    }
+        player.gain();
 
-//    @Test
-//    void expectExceptionWhenAddingScore5() {
-//        Player player = new Player("James");
-//
-//        assertThrows(IllegalArgumentException.class, ()-> player.addScore(5));
-//    }
-//
-//    @Test
-//    void expectExceptionWhenAddingScoreNeg2() {
-//        Player player = new Player("James");
-//
-//        assertThrows(IllegalArgumentException.class, ()-> player.addScore(-2));
-//    }
-//
-//    @Test
-//    void expectNoExceptionWhenAddingScoreNeg1() {
-//        Player player = new Player("James");
-//
-//        assertDoesNotThrow(()-> player.addScore(-1));
-//    }
+        assertEquals(3, player.score());
+    }
+
+    @Test
+    void expectPlayerScoreNeg1IfInvest() {
+        Player player = new Player("ABC");
+
+        player.invest();
+
+        assertEquals(-1, player.score());
+    }
 }
