@@ -72,4 +72,148 @@ public class TrustTransactionTest {
         assertEquals(-5, cooperatePlayer.score());
         assertEquals(15, cheatPlayer.score());
     }
+
+    @Test
+    void expectCopyCatPlayerToCheatInFirstRound() {
+        Player copyCatPlayer = new CopyCatPlayer("ABC");
+        Player cheatPlayer = new CheatPlayer("GFd");
+        TrustTransaction machine = new TrustTransaction(copyCatPlayer, cheatPlayer);
+
+        machine.transact(1);
+
+        assertEquals(0, copyCatPlayer.score());
+    }
+
+    @Test
+    void expectCopyCatPlayerToTrustInSecondRoundWithCooperatePlayer() {
+        Player copyCatPlayer = new CopyCatPlayer("ABC");
+        Player cooperatePlayer = new CooperatePlayer("GFd");
+        TrustTransaction machine = new TrustTransaction(copyCatPlayer, cooperatePlayer);
+
+        machine.transact(2);
+
+        assertEquals(5, copyCatPlayer.score());
+    }
+
+    @Test
+    void expectCopyCatPlayerToCheatInSecondRoundWithCheatPlayer() {
+        Player copyCatPlayer = new CopyCatPlayer("ABC");
+        Player cheatPlayer = new CheatPlayer("GFd");
+        TrustTransaction machine = new TrustTransaction(copyCatPlayer, cheatPlayer);
+
+        machine.transact(2);
+
+        assertEquals(0, copyCatPlayer.score());
+    }
+
+    @Test
+    void expectCopyKittenPlayerToTrustInFirstRound() {
+        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
+        Player cheatPlayer = new CheatPlayer("JHG");
+        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cheatPlayer);
+
+        machine.transact(1);
+
+        assertEquals(-1, copyKittenPlayer.score());
+    }
+
+    @Test
+    void expectCopyKittenPlayerToCheatInSecondRound() {
+        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
+        Player cheatPlayer = new CheatPlayer("JHG");
+        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cheatPlayer);
+
+        machine.transact(2);
+
+        assertEquals(-1, copyKittenPlayer.score());
+    }
+
+    @Test
+    void expectCopyKittenPlayerToTrustInSecondRound() {
+        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
+        Player cooperatePlayer = new CooperatePlayer("JHG");
+        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cooperatePlayer);
+
+        machine.transact(2);
+
+        assertEquals(4, copyKittenPlayer.score());
+    }
+
+    @Test
+    void expectCopyKittenPlayerToTrustFor3Rounds() {
+        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
+        Player cooperatePlayer = new CooperatePlayer("JHG");
+        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cooperatePlayer);
+
+        machine.transact(3);
+
+        assertEquals(6, copyKittenPlayer.score());
+    }
+
+    @Test
+    void expectCopyKittenPlayerToCheatFor2_3Rounds() {
+        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
+        Player cheatPlayer = new CheatPlayer("JHG");
+        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cheatPlayer);
+
+        machine.transact(3);
+
+        assertEquals(-1, copyKittenPlayer.score());
+        assertEquals(3, cheatPlayer.score());
+    }
+
+    @Test
+    void expectGrudgePlayerToTrustInRound1() {
+        Player grudgePlayer = new GrudgePlayer("BGF");
+        Player cheatPlayer = new CheatPlayer("CHE");
+        TrustTransaction machine = new TrustTransaction(grudgePlayer, cheatPlayer);
+
+        machine.transact(1);
+
+        assertEquals(-1, grudgePlayer.score());
+    }
+
+    @Test
+    void expectGrudgePlayerToCheatInRound2() {
+        Player grudgePlayer = new GrudgePlayer("BNV");
+        Player cheatPlayer = new CheatPlayer("BVX");
+        TrustTransaction machine = new TrustTransaction(grudgePlayer, cheatPlayer);
+
+        machine.transact(2);
+
+        assertEquals(-1, grudgePlayer.score());
+    }
+
+    @Test
+    void expectGrudgePlayerToCooperateInRound2() {
+        Player grudgePlayer = new GrudgePlayer("BNV");
+        Player cooperatePlayer = new CooperatePlayer("BVX");
+        TrustTransaction machine = new TrustTransaction(grudgePlayer, cooperatePlayer);
+
+        machine.transact(2);
+
+        assertEquals(4, grudgePlayer.score());
+    }
+
+    @Test
+    void expectGrudgePlayerToCheatInRound2_3() {
+        Player grudgePlayer = new GrudgePlayer("BNV");
+        Player copyCatPlayer = new CopyCatPlayer("BVX");
+        TrustTransaction machine = new TrustTransaction(grudgePlayer, copyCatPlayer);
+
+        machine.transact(3);
+
+        assertEquals(2, grudgePlayer.score());
+    }
+
+    @Test
+    void expectGrudgePlayerToCooperateInRound2_3() {
+        Player grudgePlayer = new GrudgePlayer("BNV");
+        Player cooperatePlayer = new CooperatePlayer("BVX");
+        TrustTransaction machine = new TrustTransaction(grudgePlayer, cooperatePlayer);
+
+        machine.transact(3);
+
+        assertEquals(6, grudgePlayer.score());
+    }
 }

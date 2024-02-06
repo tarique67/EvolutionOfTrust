@@ -1,63 +1,34 @@
 import org.example.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CopyKittenPlayerTest {
 
     @Test
-    void expectCopyKittenPlayerToTrustInFirstRound() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("JHG");
-        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cheatPlayer);
-
-        machine.transact(1);
-
-        assertEquals(-1, copyKittenPlayer.score());
+    void expectExceptionIfPlayerCreatedWithEmptyName() {
+        assertThrows(IllegalArgumentException.class, () -> new CopyKittenPlayer(""));
     }
 
     @Test
-    void expectCopyKittenPlayerToCheatInSecondRound() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("JHG");
-        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cheatPlayer);
-
-        machine.transact(2);
-
-        assertEquals(-1, copyKittenPlayer.score());
+    void expectCooperatePlayerCreated() {
+        assertDoesNotThrow(()->new CopyKittenPlayer("ABC"));
     }
 
     @Test
-    void expectCopyKittenPlayerToTrustInSecondRound() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cooperatePlayer = new CooperatePlayer("JHG");
-        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cooperatePlayer);
+    void expectCooperateAsChoice() {
+        Player player = new CopyKittenPlayer("James");
 
-        machine.transact(2);
-
-        assertEquals(4, copyKittenPlayer.score());
+        assertEquals(Choice.COOPERATE, player.choice());
     }
 
     @Test
-    void expectCopyKittenPlayerToTrustFor3Rounds() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cooperatePlayer = new CooperatePlayer("JHG");
-        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cooperatePlayer);
+    void expectCheatAsChoiceAfterOneGain() {
+        Player player = new CopyKittenPlayer("James");
 
-        machine.transact(3);
+        player.gain();
 
-        assertEquals(6, copyKittenPlayer.score());
+        assertEquals(Choice.COOPERATE, player.choice());
     }
 
-    @Test
-    void expectCopyKittenPlayerToCheatFor2_3Rounds() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("JHG");
-        TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cheatPlayer);
-
-        machine.transact(3);
-
-        assertEquals(-1, copyKittenPlayer.score());
-        assertEquals(3, cheatPlayer.score());
-    }
 }

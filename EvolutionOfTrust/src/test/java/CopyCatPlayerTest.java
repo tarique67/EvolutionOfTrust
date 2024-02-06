@@ -1,40 +1,34 @@
 import org.example.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CopyCatPlayerTest {
 
     @Test
-    void expectCopyCatPlayerToCheatInFirstRound() {
-        Player copyCatPlayer = new CopyCatPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("GFd");
-        TrustTransaction machine = new TrustTransaction(copyCatPlayer, cheatPlayer);
-
-        machine.transact(1);
-
-        assertEquals(0, copyCatPlayer.score());
+    void expectExceptionIfPlayerCreatedWithEmptyName() {
+        assertThrows(IllegalArgumentException.class, () -> new CopyCatPlayer(""));
     }
 
     @Test
-    void expectCopyCatPlayerToTrustInSecondRoundWithCooperatePlayer() {
-        Player copyCatPlayer = new CopyCatPlayer("ABC");
-        Player cooperatePlayer = new CooperatePlayer("GFd");
-        TrustTransaction machine = new TrustTransaction(copyCatPlayer, cooperatePlayer);
-
-        machine.transact(2);
-
-        assertEquals(5, copyCatPlayer.score());
+    void expectCooperatePlayerCreated() {
+        assertDoesNotThrow(()->new CopyCatPlayer("ABC"));
     }
 
     @Test
-    void expectCopyCatPlayerToCheatInSecondRoundWithCheatPlayer() {
-        Player copyCatPlayer = new CopyCatPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("GFd");
-        TrustTransaction machine = new TrustTransaction(copyCatPlayer, cheatPlayer);
+    void expectCheatAsChoice() {
+        Player player = new CopyCatPlayer("James");
 
-        machine.transact(2);
-
-        assertEquals(0, copyCatPlayer.score());
+        assertEquals(Choice.CHEAT, player.choice());
     }
+
+    @Test
+    void expectCooperateAsChoiceAfterOneGain() {
+        Player player = new CopyCatPlayer("James");
+
+        player.gain();
+
+        assertEquals(Choice.COOPERATE, player.choice());
+    }
+
 }
