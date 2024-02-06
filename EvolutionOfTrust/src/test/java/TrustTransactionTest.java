@@ -2,6 +2,7 @@ import org.example.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class TrustTransactionTest {
 
@@ -216,4 +217,59 @@ public class TrustTransactionTest {
 
         assertEquals(6, grudgePlayer.score());
     }
+
+    @Test
+    void expectDetectivePlayerToCheatInRound3() {
+        Player detectivePlayer = new DetectivePlayer("ABC");
+        Player cooperatePlayer = new CooperatePlayer("JHG");
+        TrustTransaction machine = new TrustTransaction(detectivePlayer, cooperatePlayer);
+
+        machine.transact(3);
+
+        assertEquals(8, detectivePlayer.score());
+        assertEquals(0, cooperatePlayer.score());
+    }
+
+    @Test
+    void expectDetectivePlayerToCheatInRound3WithCheatPlayer() {
+        Player detectivePlayer = spy( new DetectivePlayer("ABC"));
+        Player cheatPlayer = spy(new CheatPlayer("JHG"));
+        TrustTransaction machine = new TrustTransaction(detectivePlayer, cheatPlayer);
+
+        machine.transact(3);
+
+        verify(detectivePlayer, times(1)).invest();
+        verify(detectivePlayer, times(0)).gain();
+        verify(cheatPlayer, times(0)).invest();
+        verify(cheatPlayer, times(1)).gain();
+    }
+
+    @Test
+    void expectDetectivePlayerToCheatInRound4WithCopyCatPlayer() {
+        Player detectivePlayer = spy( new DetectivePlayer("ABC"));
+        Player copyCatPlayer = spy(new CopyCatPlayer("JHG"));
+        TrustTransaction machine = new TrustTransaction(detectivePlayer, copyCatPlayer);
+
+        machine.transact(4);
+
+        verify(detectivePlayer, times(2)).invest();
+        verify(detectivePlayer, times(2)).gain();
+        verify(copyCatPlayer, times(2)).invest();
+        verify(copyCatPlayer, times(2)).gain();
+    }
+
+    @Test
+    public void detectivePlayerTransactionWithCopyKittenPlayer() {
+        Player detectivePlayer = spy(new DetectivePlayer("ABC"));
+        Player copyKitten = spy(new CopyKittenPlayer("HJG"));
+        TrustTransaction transaction = new TrustTransaction(detectivePlayer, copyKitten);
+
+        transaction.transact(4);
+
+        verify(detectivePlayer, times(2)).gain();
+        verify(detectivePlayer, times(1)).invest();
+        verify(copyKitten, times(2)).invest();
+        verify(copyKitten, times(1)).gain();
+    }
+
 }
