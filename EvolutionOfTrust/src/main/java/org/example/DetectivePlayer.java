@@ -7,8 +7,8 @@ public class DetectivePlayer extends Player{
     private boolean gainedLastRound = false;
     private boolean isCopyCat = false;
 
-    public DetectivePlayer(String name) {
-        super(name);
+    public DetectivePlayer() {
+        super();
     }
 
     @Override

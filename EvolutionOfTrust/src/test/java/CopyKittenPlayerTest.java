@@ -6,25 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CopyKittenPlayerTest {
 
     @Test
-    void expectExceptionIfPlayerCreatedWithEmptyName() {
-        assertThrows(IllegalArgumentException.class, () -> new CopyKittenPlayer(""));
-    }
-
-    @Test
     void expectCooperatePlayerCreated() {
-        assertDoesNotThrow(()->new CopyKittenPlayer("ABC"));
+        assertDoesNotThrow(()->new CopyKittenPlayer());
     }
 
     @Test
     void expectCooperateAsChoice() {
-        Player player = new CopyKittenPlayer("James");
+        Player player = new CopyKittenPlayer();
 
         assertEquals(Choice.COOPERATE, player.choice());
     }
 
     @Test
     void expectCheatAsChoiceAfterOneGain() {
-        Player player = new CopyKittenPlayer("James");
+        Player player = new CopyKittenPlayer();
 
         player.gain();
 

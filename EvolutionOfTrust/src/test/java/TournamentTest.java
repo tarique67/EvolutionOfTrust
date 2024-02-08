@@ -10,49 +10,39 @@ import static org.mockito.Mockito.*;
 public class TournamentTest {
 
     @Test
-    void expectExceptionForTournamentWith0NumberOfPlayers() {
-        assertThrows(IllegalArgumentException.class, ()-> new Tournament(3));
-    }
-
-    @Test
-    void expectNoExceptionForTournamentWithValidNumberOfPlayers() {
-        assertDoesNotThrow(()-> new Tournament(10));
-    }
-
-    @Test
     void expectExceptionIfPassingLessThan5PlayersList() {
-        Tournament tournament = new Tournament(10);
+        Tournament tournament = new Tournament();
         List<Player> players = new ArrayList<>();
-        players.add(new CooperatePlayer("CVD"));
-        players.add(new CooperatePlayer("GFD"));
-        players.add(new CooperatePlayer("HGD"));
+        players.add(new CooperatePlayer());
+        players.add(new CooperatePlayer());
+        players.add(new CooperatePlayer());
 
         assertThrows(IllegalArgumentException.class,()-> tournament.add(players));
     }
 
     @Test
     void expectNoExceptionIfPassingMoreThan5PlayersList() {
-        Tournament tournament = new Tournament(6);
+        Tournament tournament = new Tournament();
         List<Player> players = new ArrayList<>();
-        players.add(new CooperatePlayer("CVD"));
-        players.add(new CopyCatPlayer("GFD"));
-        players.add(new CheatPlayer("HGD"));
-        players.add(new DetectivePlayer("saa"));
-        players.add(new CopyKittenPlayer("dew"));
-        players.add(new GrudgePlayer("ews"));
+        players.add(new CooperatePlayer());
+        players.add(new CopyCatPlayer());
+        players.add(new CheatPlayer());
+        players.add(new DetectivePlayer());
+        players.add(new CopyKittenPlayer());
+        players.add(new GrudgePlayer());
 
         assertDoesNotThrow(()-> tournament.add(players));
     }
 
     @Test
-    void expectPlayersPlay5RoundsEachWhen6PlayersEnrolled() {
-        Tournament tournament = new Tournament(5);
+    void expectPlayersPlay4RoundsEachWhen5PlayersAddedInTournament() {
+        Tournament tournament = new Tournament();
         List<Player> players = new ArrayList<>();
-        Player player1 = spy(new CooperatePlayer("CVD"));
-        Player player2 = spy(new CheatPlayer("GFD"));
-        Player player3 = spy(new CheatPlayer("HGD"));
-        Player player4 = spy(new CheatPlayer("saa"));
-        Player player5 = spy(new CheatPlayer("dew"));
+        Player player1 = spy(new CooperatePlayer());
+        Player player2 = spy(new CheatPlayer());
+        Player player3 = spy(new CheatPlayer());
+        Player player4 = spy(new CheatPlayer());
+        Player player5 = spy(new CheatPlayer());
         players.add(player1);
         players.add(player2);
         players.add(player3);
@@ -60,7 +50,7 @@ public class TournamentTest {
         players.add(player5);
         tournament.add(players);
 
-        tournament.start(1);
+        tournament.startRound(1);
 
         verify(player1, times(4)).invest();
         verify(player2, times(1)).gain();
@@ -71,19 +61,18 @@ public class TournamentTest {
 
     @Test
     void expectAllPlayersSameInTournament() {
-        Tournament tournament = new Tournament(6);
+        Tournament tournament = new Tournament();
         List<Player> players = new ArrayList<>();
-        players.add(new CooperatePlayer("CVD"));
-        players.add(new CooperatePlayer("GFD"));
-        players.add(new CooperatePlayer("HGD"));
-        players.add(new CooperatePlayer("saa"));
-        players.add(new CooperatePlayer("dew"));
-        players.add(new CooperatePlayer("ews"));
+        players.add(new CooperatePlayer());
+        players.add(new CooperatePlayer());
+        players.add(new CooperatePlayer());
+        players.add(new CooperatePlayer());
+        players.add(new CooperatePlayer());
+        players.add(new CooperatePlayer());
 
         tournament.add(players);
 
         assertTrue(tournament.allPlayersSame());
     }
-
 
 }

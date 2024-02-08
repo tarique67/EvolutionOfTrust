@@ -7,18 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CheatPlayerTest {
 
     @Test
-    void expectExceptionIfPlayerCreatedWithEmptyName() {
-        assertThrows(IllegalArgumentException.class, () -> new CheatPlayer(""));
-    }
-
-    @Test
     void expectCheatPlayerCreated() {
-        assertDoesNotThrow(() -> new CheatPlayer("James"));
+        assertDoesNotThrow(() -> new CheatPlayer());
     }
 
     @Test
     void expectCheatAsChoice() {
-        CheatPlayer player = new CheatPlayer("James");
+        CheatPlayer player = new CheatPlayer();
 
         assertEquals(Choice.CHEAT, player.choice());
     }

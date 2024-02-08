@@ -8,25 +8,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DetectivePlayerTest {
 
     @Test
-    void expectExceptionIfPlayerCreatedWithEmptyName() {
-        assertThrows(IllegalArgumentException.class, () -> new DetectivePlayer(""));
-    }
-
-    @Test
     void expectDetectivePlayerCreated() {
-        assertDoesNotThrow(()->new DetectivePlayer("ABC"));
+        assertDoesNotThrow(()->new DetectivePlayer());
     }
 
     @Test
     void expectFirstChoiceToBeCooperate() {
-        Player player = new DetectivePlayer("ABC");
+        Player player = new DetectivePlayer();
 
         assertEquals(Choice.COOPERATE, player.choice());
     }
 
     @Test
     void expectSecondChoiceToCheat() {
-        Player player = new DetectivePlayer("ABC");
+        Player player = new DetectivePlayer();
 
         player.choice();
 
@@ -35,7 +30,7 @@ public class DetectivePlayerTest {
 
     @Test
     void expectChoiceCheatAfterTwoGainAndOneInvests() {
-        Player player = new DetectivePlayer("ABC");
+        Player player = new DetectivePlayer();
         player.choice();
         player.choice();
 
@@ -48,7 +43,7 @@ public class DetectivePlayerTest {
 
     @Test
     void expectChoiceCooperateAfterTwoGainAndTwoInvests() {
-        Player player = new DetectivePlayer("ABC");
+        Player player = new DetectivePlayer();
         player.choice();
         player.choice();
 

@@ -5,8 +5,8 @@ public class GrudgePlayer extends Player{
     private boolean cheat = false;
     private int cheatCount = 0;
 
-    public GrudgePlayer(String name) {
-        super(name);
+    public GrudgePlayer() {
+        super();
     }
 
     @Override

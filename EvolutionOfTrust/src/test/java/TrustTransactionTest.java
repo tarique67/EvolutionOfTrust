@@ -8,16 +8,16 @@ public class TrustTransactionTest {
 
     @Test
     void expectNoExceptionIfEotMachineCreatedWithTwoPlayers() {
-        Player firstPlayer = new Player("James");
-        Player secondPlayer = new Player("Abc");
+        Player firstPlayer = new Player();
+        Player secondPlayer = new Player();
 
         assertDoesNotThrow(()-> new TrustTransaction(firstPlayer, secondPlayer));
     }
 
     @Test
     void expectScore2ForEachPlayerIfBothCooperate() {
-        Player firstPlayer = new CooperatePlayer("James");
-        Player secondPlayer = new CooperatePlayer("James");
+        Player firstPlayer = new CooperatePlayer();
+        Player secondPlayer = new CooperatePlayer();
         TrustTransaction machine = new TrustTransaction(firstPlayer, secondPlayer);
 
         machine.transact(1);
@@ -28,8 +28,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectScore3_Neg1ForEachPlayerIfOneCheatsOtherCooperates() {
-        Player firstPlayer = new CooperatePlayer("James");
-        Player secondPlayer = new CheatPlayer("James");
+        Player firstPlayer = new CooperatePlayer();
+        Player secondPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(firstPlayer, secondPlayer);
 
         machine.transact(1);
@@ -40,8 +40,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectScore0_0ForBothCheatPlayersForARoundOf5() {
-        CheatPlayer firstCheatPlayer = new CheatPlayer("James");
-        CheatPlayer secondCheatPlayer = new CheatPlayer("James");
+        CheatPlayer firstCheatPlayer = new CheatPlayer();
+        CheatPlayer secondCheatPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(firstCheatPlayer, secondCheatPlayer);
 
         machine.transact(5);
@@ -52,8 +52,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectScore10_10ForBothCooperatePlayersForARoundOf5() {
-        CooperatePlayer firstCooperatePlayer = new CooperatePlayer("ABC");
-        CooperatePlayer secondCooperatePlayer = new CooperatePlayer("DF");
+        CooperatePlayer firstCooperatePlayer = new CooperatePlayer();
+        CooperatePlayer secondCooperatePlayer = new CooperatePlayer();
         TrustTransaction machine = new TrustTransaction(firstCooperatePlayer, secondCooperatePlayer);
 
         machine.transact(5);
@@ -64,8 +64,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectScoreNeg5_15ForCooperatePlayerAndCheatPlayer() {
-        CooperatePlayer cooperatePlayer = new CooperatePlayer("ABD");
-        CheatPlayer cheatPlayer = new CheatPlayer("BVC");
+        CooperatePlayer cooperatePlayer = new CooperatePlayer();
+        CheatPlayer cheatPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(cooperatePlayer, cheatPlayer);
 
         machine.transact(5);
@@ -76,8 +76,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectCopyCatPlayerToCheatInFirstRound() {
-        Player copyCatPlayer = new CopyCatPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("GFd");
+        Player copyCatPlayer = new CopyCatPlayer();
+        Player cheatPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(copyCatPlayer, cheatPlayer);
 
         machine.transact(1);
@@ -87,8 +87,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectCopyCatPlayerToTrustInSecondRoundWithCooperatePlayer() {
-        Player copyCatPlayer = new CopyCatPlayer("ABC");
-        Player cooperatePlayer = new CooperatePlayer("GFd");
+        Player copyCatPlayer = new CopyCatPlayer();
+        Player cooperatePlayer = new CooperatePlayer();
         TrustTransaction machine = new TrustTransaction(copyCatPlayer, cooperatePlayer);
 
         machine.transact(2);
@@ -98,8 +98,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectCopyCatPlayerToCheatInSecondRoundWithCheatPlayer() {
-        Player copyCatPlayer = new CopyCatPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("GFd");
+        Player copyCatPlayer = new CopyCatPlayer();
+        Player cheatPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(copyCatPlayer, cheatPlayer);
 
         machine.transact(2);
@@ -109,8 +109,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectCopyKittenPlayerToTrustInFirstRound() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("JHG");
+        Player copyKittenPlayer = new CopyKittenPlayer();
+        Player cheatPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cheatPlayer);
 
         machine.transact(1);
@@ -120,8 +120,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectCopyKittenPlayerToCheatInSecondRound() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("JHG");
+        Player copyKittenPlayer = new CopyKittenPlayer();
+        Player cheatPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cheatPlayer);
 
         machine.transact(2);
@@ -131,8 +131,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectCopyKittenPlayerToTrustInSecondRound() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cooperatePlayer = new CooperatePlayer("JHG");
+        Player copyKittenPlayer = new CopyKittenPlayer();
+        Player cooperatePlayer = new CooperatePlayer();
         TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cooperatePlayer);
 
         machine.transact(2);
@@ -142,8 +142,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectCopyKittenPlayerToTrustFor3Rounds() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cooperatePlayer = new CooperatePlayer("JHG");
+        Player copyKittenPlayer = new CopyKittenPlayer();
+        Player cooperatePlayer = new CooperatePlayer();
         TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cooperatePlayer);
 
         machine.transact(3);
@@ -153,8 +153,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectCopyKittenPlayerToCheatFor2_3Rounds() {
-        Player copyKittenPlayer = new CopyKittenPlayer("ABC");
-        Player cheatPlayer = new CheatPlayer("JHG");
+        Player copyKittenPlayer = new CopyKittenPlayer();
+        Player cheatPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(copyKittenPlayer, cheatPlayer);
 
         machine.transact(3);
@@ -165,8 +165,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectGrudgePlayerToTrustInRound1() {
-        Player grudgePlayer = new GrudgePlayer("BGF");
-        Player cheatPlayer = new CheatPlayer("CHE");
+        Player grudgePlayer = new GrudgePlayer();
+        Player cheatPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(grudgePlayer, cheatPlayer);
 
         machine.transact(1);
@@ -176,8 +176,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectGrudgePlayerToCheatInRound2() {
-        Player grudgePlayer = new GrudgePlayer("BNV");
-        Player cheatPlayer = new CheatPlayer("BVX");
+        Player grudgePlayer = new GrudgePlayer();
+        Player cheatPlayer = new CheatPlayer();
         TrustTransaction machine = new TrustTransaction(grudgePlayer, cheatPlayer);
 
         machine.transact(2);
@@ -187,8 +187,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectGrudgePlayerToCooperateInRound2() {
-        Player grudgePlayer = new GrudgePlayer("BNV");
-        Player cooperatePlayer = new CooperatePlayer("BVX");
+        Player grudgePlayer = new GrudgePlayer();
+        Player cooperatePlayer = new CooperatePlayer();
         TrustTransaction machine = new TrustTransaction(grudgePlayer, cooperatePlayer);
 
         machine.transact(2);
@@ -198,8 +198,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectGrudgePlayerToCheatInRound2_3() {
-        Player grudgePlayer = new GrudgePlayer("BNV");
-        Player copyCatPlayer = new CopyCatPlayer("BVX");
+        Player grudgePlayer = new GrudgePlayer();
+        Player copyCatPlayer = new CopyCatPlayer();
         TrustTransaction machine = new TrustTransaction(grudgePlayer, copyCatPlayer);
 
         machine.transact(3);
@@ -209,8 +209,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectGrudgePlayerToCooperateInRound2_3() {
-        Player grudgePlayer = new GrudgePlayer("BNV");
-        Player cooperatePlayer = new CooperatePlayer("BVX");
+        Player grudgePlayer = new GrudgePlayer();
+        Player cooperatePlayer = new CooperatePlayer();
         TrustTransaction machine = new TrustTransaction(grudgePlayer, cooperatePlayer);
 
         machine.transact(3);
@@ -220,8 +220,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectDetectivePlayerToCheatInRound3() {
-        Player detectivePlayer = new DetectivePlayer("ABC");
-        Player cooperatePlayer = new CooperatePlayer("JHG");
+        Player detectivePlayer = new DetectivePlayer();
+        Player cooperatePlayer = new CooperatePlayer();
         TrustTransaction machine = new TrustTransaction(detectivePlayer, cooperatePlayer);
 
         machine.transact(3);
@@ -232,8 +232,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectDetectivePlayerToCheatInRound3WithCheatPlayer() {
-        Player detectivePlayer = spy( new DetectivePlayer("ABC"));
-        Player cheatPlayer = spy(new CheatPlayer("JHG"));
+        Player detectivePlayer = spy( new DetectivePlayer());
+        Player cheatPlayer = spy(new CheatPlayer());
         TrustTransaction machine = new TrustTransaction(detectivePlayer, cheatPlayer);
 
         machine.transact(3);
@@ -246,8 +246,8 @@ public class TrustTransactionTest {
 
     @Test
     void expectDetectivePlayerToCheatInRound4WithCopyCatPlayer() {
-        Player detectivePlayer = spy( new DetectivePlayer("ABC"));
-        Player copyCatPlayer = spy(new CopyCatPlayer("JHG"));
+        Player detectivePlayer = spy( new DetectivePlayer());
+        Player copyCatPlayer = spy(new CopyCatPlayer());
         TrustTransaction machine = new TrustTransaction(detectivePlayer, copyCatPlayer);
 
         machine.transact(4);
@@ -260,8 +260,8 @@ public class TrustTransactionTest {
 
     @Test
     public void detectivePlayerTransactionWithCopyKittenPlayer() {
-        Player detectivePlayer = spy(new DetectivePlayer("ABC"));
-        Player copyKitten = spy(new CopyKittenPlayer("HJG"));
+        Player detectivePlayer = spy(new DetectivePlayer());
+        Player copyKitten = spy(new CopyKittenPlayer());
         TrustTransaction transaction = new TrustTransaction(detectivePlayer, copyKitten);
 
         transaction.transact(4);

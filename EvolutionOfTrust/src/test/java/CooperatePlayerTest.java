@@ -8,18 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CooperatePlayerTest {
 
     @Test
-    void expectExceptionIfPlayerCreatedWithEmptyName() {
-        assertThrows(IllegalArgumentException.class, () -> new CooperatePlayer(""));
-    }
-
-    @Test
     void expectCooperatePlayerCreated() {
-        assertDoesNotThrow(()->new CooperatePlayer("ABC"));
+        assertDoesNotThrow(CooperatePlayer::new);
     }
 
     @Test
     void expectCooperateAsChoice() {
-        CooperatePlayer player = new CooperatePlayer("James");
+        CooperatePlayer player = new CooperatePlayer();
 
         assertEquals(Choice.COOPERATE, player.choice());
     }

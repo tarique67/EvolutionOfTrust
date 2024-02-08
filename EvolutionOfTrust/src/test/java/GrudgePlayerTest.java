@@ -6,25 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GrudgePlayerTest {
 
     @Test
-    void expectExceptionIfPlayerCreatedWithEmptyName() {
-        assertThrows(IllegalArgumentException.class, () -> new GrudgePlayer(""));
-    }
-
-    @Test
     void expectCooperatePlayerCreated() {
-        assertDoesNotThrow(()->new GrudgePlayer("ABC"));
+        assertDoesNotThrow(()->new GrudgePlayer());
     }
 
     @Test
     void expectCooperateAsChoice() {
-        Player player = new GrudgePlayer("James");
+        Player player = new GrudgePlayer();
 
         assertEquals(Choice.COOPERATE, player.choice());
     }
 
     @Test
     void expectCooperateAsChoiceAfterOneGainAndInvest() {
-        Player player = new GrudgePlayer("James");
+        Player player = new GrudgePlayer();
 
         player.gain();
         player.invest();
@@ -34,7 +29,7 @@ public class GrudgePlayerTest {
 
     @Test
     void expectCheatAsChoiceAfterOneInvest() {
-        Player player = new GrudgePlayer("James");
+        Player player = new GrudgePlayer();
 
         player.invest();
 

@@ -4,8 +4,8 @@ public class CopyCatPlayer extends Player{
 
     private boolean gainedLastRound = false;
 
-    public CopyCatPlayer(String name) {
-        super(name);
+    public CopyCatPlayer() {
+        super();
     }
 
     @Override

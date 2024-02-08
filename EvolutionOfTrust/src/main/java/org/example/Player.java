@@ -2,16 +2,15 @@ package org.example;
 
 import java.util.Random;
 
-public class Player {
-
-    private final String name;
+public class Player{
 
     private int score;
 
-    public Player(String name) {
-        if(name.isEmpty())
-            throw new IllegalArgumentException();
-        this.name = name;
+    public Player clone(){
+        return new Player();
+    }
+
+    public Player() {
         this.score = 0;
     }
 

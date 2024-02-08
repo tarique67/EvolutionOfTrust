@@ -3,8 +3,8 @@ package org.example;
 public class CopyKittenPlayer extends Player {
 
     private boolean gainedLastRound = true;
-    public CopyKittenPlayer(String name) {
-        super(name);
+    public CopyKittenPlayer() {
+        super();
     }
 
     @Override
