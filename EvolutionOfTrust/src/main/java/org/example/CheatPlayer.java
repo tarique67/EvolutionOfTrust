@@ -11,4 +11,8 @@ public class CheatPlayer extends Player{
         return Choice.CHEAT;
     }
 
+    @Override
+    public Player clone() {
+        return new CheatPlayer();
+    }
 }

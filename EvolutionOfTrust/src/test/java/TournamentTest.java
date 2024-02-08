@@ -75,4 +75,103 @@ public class TournamentTest {
         assertTrue(tournament.allPlayersSame());
     }
 
+    @Test
+    void expectAllPlayersSameAfterOneRound() {
+        Tournament tournament = new Tournament();
+        List<Player> players = new ArrayList<>();
+        Player player1 = new CheatPlayer();
+        Player player2 = new CheatPlayer();
+        Player player3 = new CheatPlayer();
+        Player player4 = new CheatPlayer();
+        Player player5 = new CheatPlayer();
+        Player player6 = new CooperatePlayer();
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+        players.add(player4);
+        players.add(player5);
+        players.add(player6);
+        tournament.add(players);
+
+        tournament.startRound(1);
+
+        assertTrue(tournament.allPlayersSame());
+    }
+
+    @Test
+    void expectOnlyCheatPlayerRemainInTournament() {
+        Tournament tournament = new Tournament();
+        List<Player> players = new ArrayList<>();
+        Player player1 = new CheatPlayer();
+        Player player2 = new CheatPlayer();
+        Player player3 = new CheatPlayer();
+        Player player4 = new CheatPlayer();
+        Player player5 = new CheatPlayer();
+        Player player6 = new CooperatePlayer();
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+        players.add(player4);
+        players.add(player5);
+        players.add(player6);
+        tournament.add(players);
+
+        List<Player> returnedPlayers = tournament.play(5);
+        int cheatPlayerCount = 0;
+        for(Player player : returnedPlayers){
+            if(player.getClass() == CheatPlayer.class) cheatPlayerCount++;
+        }
+
+        assertEquals(players.size(), cheatPlayerCount);
+    }
+
+    @Test
+    void expectOnlyCheatPlayerRemainInTournamentOf1CheatAnd5CooperatePlayers() {
+        Tournament tournament = new Tournament();
+        List<Player> players = new ArrayList<>();
+        Player player1 = new CheatPlayer();
+        Player player2 = new CooperatePlayer();
+        Player player3 = new CooperatePlayer();
+        Player player4 = new CooperatePlayer();
+        Player player5 = new CooperatePlayer();
+        Player player6 = new CooperatePlayer();
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+        players.add(player4);
+        players.add(player5);
+        players.add(player6);
+        tournament.add(players);
+
+        List<Player> returnedPlayers = tournament.play(5);
+        int cheatPlayerCount = 0;
+        for(Player player : returnedPlayers){
+            if(player.getClass() == CheatPlayer.class) cheatPlayerCount++;
+        }
+
+        assertEquals(players.size(), cheatPlayerCount);
+    }
+
+    @Test
+    void expectTotalRoundRunsMaxTimes() {
+        Tournament tournament = spy(new Tournament());
+        List<Player> players = new ArrayList<>();
+        Player player1 = new CheatPlayer();
+        Player player2 = new CheatPlayer();
+        Player player3 = new CheatPlayer();
+        Player player4 = new CheatPlayer();
+        Player player5 = new CopyCatPlayer();
+        Player player6 = new CopyCatPlayer();
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+        players.add(player4);
+        players.add(player5);
+        players.add(player6);
+        tournament.add(players);
+
+        tournament.play(5);
+
+        verify(tournament,times(100)).startRound(5);
+    }
 }

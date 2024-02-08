@@ -32,4 +32,9 @@ public class GrudgePlayer extends Player{
         cheatCount--;
         super.gain();
     }
+
+    @Override
+    public Player clone() {
+        return new GrudgePlayer();
+    }
 }

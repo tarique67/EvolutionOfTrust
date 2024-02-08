@@ -1,13 +1,14 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
 public class Tournament {
 
     private List<Player> players;
+
+    private int maxRounds = 100;
 
     public Tournament() {
         this.players = new ArrayList<>();
@@ -21,7 +22,14 @@ public class Tournament {
         this.players.addAll(players);
     }
 
-    public List<Player> startRound(int noOfRounds) {
+    public List<Player> play(int noOfRounds){
+        while(maxRounds-- >0 && !allPlayersSame()){
+            startRound(noOfRounds);
+        }
+        return players;
+    }
+
+    public void startRound(int noOfRounds) {
         for(int i=0; i< players.size(); i++){
             for(int j=i+1; j<players.size(); j++){
                 TrustTransaction machine = new TrustTransaction(players.get(i), players.get(j));
@@ -29,27 +37,30 @@ public class Tournament {
             }
         }
         this.players.sort(Comparator.comparing(Player::score).reversed());
-        removeBottom5();
-        cloneTopFive();
-        return players;
+        eliminateBottomFive();
+        cloneAllPlayers();
     }
 
-    private void removeBottom5() {
-        for(int i=5; i<players.size(); i++){
-            players.remove(players.get(i));
+    private void cloneAllPlayers() {
+        for(int i=0; i<players.size(); i++){
+            players.set(i, players.get(i).clone());
         }
     }
 
-    private List<Player> cloneTopFive() {
-        for(int i=0; i<5; i++){
-            this.players.add(players.get(i).clone());
+    private void eliminateBottomFive() {
+        int i = 0;
+        int j = 5;
+        while(i<5 && j<players.size()){
+            players.set(j, players.get(i).clone());
+            i++;
+            j++;
         }
-        return players;
     }
 
     public boolean allPlayersSame() {
-        for(int i=0; i<players.size()-2; i++){
-            if(players.get(i).getClass() != players.get(i+1).getClass()) return false;
+        Player player = players.getFirst();
+        for(int i=1; i<players.size(); i++){
+            if(players.get(i).getClass() != player.getClass()) return false;
         }
         return true;
     }

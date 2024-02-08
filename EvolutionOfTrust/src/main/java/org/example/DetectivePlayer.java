@@ -47,4 +47,9 @@ public class DetectivePlayer extends Player{
 
         super.gain();
     }
+
+    @Override
+    public Player clone() {
+        return new DetectivePlayer();
+    }
 }
